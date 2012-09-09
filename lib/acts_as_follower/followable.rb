@@ -46,9 +46,9 @@ module ActsAsFollower #:nodoc:
       # Allows magic names on followers_by_type_count
       # e.g. count_user_followers == followers_by_type_count('User')
       def method_missing(m, *args)
-        if m.to_s[/count_(.+)_followers/]
+        if m.to_s[/count_(.+)_followers/] || m.to_s[/followers_(.+)_count/]
           followers_by_type_count($1.singularize.classify)
-        elsif m.to_s[/(.+)_followers/]
+        elsif m.to_s[/(.+)_followers/] || m.to_s[/followers_(.+)/]
           followers_by_type($1.singularize.classify)
         else
           super
